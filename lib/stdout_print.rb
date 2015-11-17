@@ -10,22 +10,17 @@ module ToBarGraph
     def invoke      
       if @bar_graph.length == 0
         @stdout.puts "You have no bar graph data"
-        return
-      end
-
-      unless @bar_graph.buckets.is_a?(Hash)
+      elsif !(@bar_graph.buckets.is_a?(Hash))
         @stdout.puts "The data you have provided is not bargraph-able" 
-        return
+      else
+        print_header
+        print_body
       end
-
-      print_header
-      
-      print_body
     end
 
     private
     def print_header
-      @stdout.puts "\n**************************************************************"
+      @stdout.print "\r**************************************************************\n"
       @stdout.puts "Results for #to_bar_graph(print_info: true)"
       @stdout.puts "\n"
 
@@ -62,6 +57,7 @@ module ToBarGraph
         stars       = ''
 
         percentage.ceil.times { |x| stars << '*' }
+        stars.length.upto(100) { |x| stars << ' ' }
 
         @stdout.printf("#{cata} | #{freq} | #{prec} | #{star} \n", ("#{cata_sig}" % category), frequency, ('%.4f' % percentage), stars)
       end
