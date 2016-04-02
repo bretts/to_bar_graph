@@ -2,9 +2,10 @@ module ToBarGraph
 
   class StdoutPrint
 
-    def initialize(bar_graph, stdout=$stdout)
+    def initialize(bar_graph, stdout=$stdout, show_header: true)
       @bar_graph      = bar_graph
       @stdout         = stdout
+      @show_header    = show_header
     end
 
     def invoke      
@@ -13,7 +14,7 @@ module ToBarGraph
       elsif !(@bar_graph.buckets.is_a?(Hash))
         @stdout.puts "The data you have provided is not bargraph-able" 
       else
-        print_header
+        print_header if @show_header
         print_body
       end
     end
@@ -21,7 +22,7 @@ module ToBarGraph
     private
     def print_header
       @stdout.print "\r**************************************************************\n"
-      @stdout.puts "Results for #to_bar_graph(print_info: true)"
+      @stdout.puts "Results for #to_bar_graph(print_info: true, print_header: #{@show_header})"
       @stdout.puts "\n"
 
       @stdout.puts "Data set Size: #{@bar_graph.bucket_contents_length} items"
