@@ -38,7 +38,7 @@ module ToBarGraph
       star      = '%-20s'
       cata_sig  = '%.20s'
 
-      longest_category_name = @bar_graph.longest_category_name.length
+      longest_category_name = begin @bar_graph.longest_category_name.length; rescue; return 10; end
       if longest_category_name >= 50
         cata      = '%-100s'
         cata_sig  = '%.100s'

@@ -18,9 +18,13 @@ describe 'ToBarGraph' do
 
             expect(bar_graph.length).to eq(4)
         end
+
+        it 'should not crash when there is one category and that category is an empty string' do
+            data = { "" => 23 }
+
+            bar_graph = data.to_bar_graph
+
+            expect(bar_graph.length).to eq(1)
+        end
     end
 end
-
-
-
-
